@@ -1,0 +1,48 @@
+@import './Variables.scss';
+
+@mixin use-overlay () {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $full-size;
+  height: $full-size;
+}
+
+@mixin use-flex ($horizontal-align: center, $vertical-align: center) {
+  display: flex;
+  justify-content: $horizontal-align;
+  align-items: $vertical-align;
+}
+
+@mixin use-transition ($speed: $normal) {
+  -webkit-transition: $speed; 
+  -moz-transition: $speed;   
+  -ms-transition: $speed;    
+  -o-transition: $speed;     
+  transition: $speed;         
+}
+
+@mixin use-transformed ($transformation) {
+  -moz-transform: $transformation;
+  -o-transform: $transformation;
+  -ms-transform: $transformation;
+  -webkit-transform: $transformation;
+  transform: $transformation;
+}
+
+@mixin use-transformed-origin ($x: $half-size, $y: $half-size) {
+  moz-transform-origin: $x $y;
+  -o-transform-origin: $x $y;
+  -ms-transform-origin: $x $y;
+  -webkit-transform-origin: $x $y;
+  transform-origin: $x $y;
+}
+
+@mixin use-no-select {
+  -webkit-touch-callout: none!important;
+  -webkit-user-select: none!important;
+  -khtml-user-select: none!important;
+  -moz-user-select: none!important;
+  -ms-user-select: none!important;
+  user-select: none!important;
+}

@@ -1,0 +1,5 @@
+@import "../Styles/Mixins.scss";
+.pagecontent{
+    opacity: 0;
+    @include use-transformed(translate(0px, 150px));
+}

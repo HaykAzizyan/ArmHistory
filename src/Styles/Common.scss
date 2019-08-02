@@ -1,0 +1,91 @@
+@import "./Variables.scss";
+@import "./Mixins.scss";
+
+$margin-list: margin margin-top margin-bottom margin-left margin-right;
+$padding-list: padding padding-top padding-bottom padding-left padding-right;
+
+@for $i from 0 through 200 {
+
+  @each $margin-property in $margin-list {
+    .#{$margin-property}-#{$i} {
+      #{$margin-property}: #{$i}px;
+    }
+
+    .margin-v-#{$i} {
+      margin-top: #{$i}px;
+      margin-bottom: #{$i}px;
+    }
+
+    .margin-h-#{$i} {
+      margin-left: #{$i}px;
+      margin-right: #{$i}px;
+    }
+
+    .margin-#{$i} {
+      margin: #{$i}px;
+    }
+  }
+
+  @each $padding-property in $padding-list {
+    .#{$padding-property}-#{$i} {
+      #{$padding-property}: #{$i}px;
+    }
+
+    .padding-v-#{$i} {
+      padding-top: #{$i}px;
+      padding-bottom: #{$i}px;
+    }
+
+    .padding-h-#{$i} {
+      padding-left: #{$i}px;
+      padding-right: #{$i}px;
+    }
+
+    .padding-#{$i} {
+      padding: #{$i}px;
+    }
+  }
+}
+
+
+
+
+
+$positions-list: top right bottom left;
+
+@for $i from 0 through 100 {
+  @each $position-property in $positions-list {
+    .#{$position-property}-#{i} {
+      #{$position-property}: #{i}px;
+    }
+  }
+}
+
+
+
+@for $i from 0 through 10 {
+  .opacity-#{$i} {
+    opacity: $i * .1;
+  }
+}
+
+
+@mixin app-button ($background-color: $white, $text-color: $grey-dark, $border-color: $grey) {
+
+  background: $background-color;
+  color: $text-color;
+  border: 1px solid $border-color;
+
+  &:hover {
+    background: darken($background-color, 5%);
+  }
+
+  &:active {
+    background: darken($background-color, 10%);
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    background: $background-color;
+  }
+}

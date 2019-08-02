@@ -1,0 +1,25 @@
+import React from 'react'
+import Header from "./Components/Header"
+import {MobxRouter} from "mobx-router"
+import {inject, observer} from 'mobx-react';
+@inject("mainStore")
+@observer 
+class App extends React.Component <any, any>
+{
+  render()
+  
+  {
+    return(
+      <div>
+        <Header/>
+        <MobxRouter store={this.props.mainStore}/>
+      </div> 
+    );  
+  }
+  constructor(props:any)
+  {
+    super(props);
+    console.log (props);
+  }
+}  
+export default App;
