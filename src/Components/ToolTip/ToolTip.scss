@@ -1,0 +1,14 @@
+.tool-tip-class{
+    background: black;
+    color: gray;
+    position: fixed;
+    // display: n;
+    opacity: 0.1;
+    padding: 20px;
+    left: 0px;
+    top: 0px;
+    &.is-visible{
+        // display: block;
+        opacity: 1;
+    }
+}

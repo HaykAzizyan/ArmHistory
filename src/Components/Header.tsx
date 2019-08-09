@@ -16,6 +16,7 @@ class Header extends React.Component<any, any>
             case "HomePage":router.goTo(routes.homepage);break;
             case "HistoricPersons":router.goTo(routes.historicpersons);break;
             case "HistoricEvents":router.goTo(routes.historicevents);break;
+            case "Statistic":router.goTo(routes.statistic);break;
             default: console.error("unknown route");break;
         }
     }
@@ -39,6 +40,9 @@ class Header extends React.Component<any, any>
                     <button onClick={() => this.handleOnClick('HistoricEvents')}> Исторические события </button>
                     </li>
                     
+                    <li className="nav-active">
+                    <button onClick={() => this.handleOnClick('Statistic')}> Статистика </button>
+                    </li>
                 </ul>
             </nav>
        );
