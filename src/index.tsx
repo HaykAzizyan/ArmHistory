@@ -6,11 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import {configure} from 'mobx';
 import {Provider} from 'mobx-react'; 
 import mainStore from './Store/MainStore'
+import dataService from './Data/dataService'
 import {startRouter} from "mobx-router"
 import routes from "./Config/Views"
 configure({enforceActions: 'always'});
 startRouter(routes, mainStore) 
-ReactDOM.render(<Provider  mainStore={mainStore}><App/></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider 
+    dataService={dataService} 
+    mainStore={mainStore}><App/></Provider>, document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

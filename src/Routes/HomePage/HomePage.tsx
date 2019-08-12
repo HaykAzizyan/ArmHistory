@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react';
 import * as d3 from 'd3';
 import BackGround from '../../Components/Background/Background';
 import BackGroundModel from '../../Components/Background/BackgroundModel';
-@inject("mainStore")
+@inject("mainStore", "dataService")
 @observer
 export default class HomePage extends React.Component <any, any>
 {
@@ -19,9 +19,13 @@ export default class HomePage extends React.Component <any, any>
         root.transition().duration(500).ease(d3.easeLinear)
         .style('transform', () => 'translate(0, 0px)')
         .style('opacity', () => 1);
+
+        const BG = this.props.dataService.loadBackground()
+        this.model.addImages(BG).setIndex();
+
     }
     private root: any= React.createRef();
-    private model: BackGroundModel = new BackGroundModel().addImage({source: "./Images/Background gallery/IMG_0323.JPG", lable: "Այր ու ձի"});
+    private model: BackGroundModel = new BackGroundModel();
     
     render()
     {   
@@ -29,6 +33,7 @@ export default class HomePage extends React.Component <any, any>
                 <div className={`pagecontent `} ref={this.root}>                    
                     <h1>HomePage</h1>
                     <BackGround model={this.model}/>
+                    <button onClick={event => this.model.selectNext()}> Кнопка </button>
                 </div>
         );
     }

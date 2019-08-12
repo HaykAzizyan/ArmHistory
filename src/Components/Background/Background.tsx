@@ -1,14 +1,15 @@
 import React from "react";
 import BackGroundModel from "./BackgroundModel"
 import "./Background.scss"
-
+import { observer } from "mobx-react";
+@observer
 export default class BackGround extends React.Component  <any, any>{
 
 private backGroundModel: BackGroundModel;
 private getBackGroundImage():any{
     if (this.backGroundModel.currentImage)
     {
-        return {"backgroundImage": `url(./Images/Background gallery/IMG_0323.JPG)`}
+        return {"backgroundImage": `url("${this.backGroundModel.currentImage.source}")`}
     }
     else return {}
 }

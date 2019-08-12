@@ -21,8 +21,14 @@ export default class BackGroundModel{
         this.images.push(img);
         return this;
     }
+
+    @action public addImages(images: IBackGroundItem[])
+    {
+        images.forEach(img => this.addImage(img));
+        return this;
+    }
     
-    @action public setIndex(newIndex: number)
+    @action public setIndex(newIndex: number = 0)
     {
         this.currentIndex = newIndex
         return this;
@@ -43,6 +49,7 @@ export default class BackGroundModel{
             newIndex = 0;
         }
         this.setIndex(newIndex);
+        console.log(newIndex);
     }
     @computed public get currentImage()
     {
