@@ -61,7 +61,11 @@ export default class DonutChart extends React.Component <any, any>
         .on('mouseout', (d, i) => {
             const event = d3.event;
             this.model.events.mouseout(d, [event.clientX, event.clientY])
-            d['elem'].style('fill', () => color[i])})     
+            d['elem'].style('fill', () => color[i])})   
+        .on('mousemove', (d, i) =>{
+            const event = d3.event;
+            this.model.events.mousemove(d, [event.clientX, event.clientY])
+        })  
     }
 
 

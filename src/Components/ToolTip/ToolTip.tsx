@@ -11,13 +11,23 @@ export default class Tooltip extends React.Component <any, any>
     }
   
     private model: TooltipModel;
+
+    private getpos = () => {
+        const {x, y} = this.model 
+        return{left: x + "px", top: y + "px"}
+    } 
+
     
     render()
     {
 
         return(
-            <div className={`tool-tip-class ${this.model.isVisible ? 'is-visible' : ''}`}>
-                допустоим тут что-то есть
+            <div style={this.getpos()} className={`tool-tip-class ${this.model.isVisible ? 'is-visible' : ''}`}>
+                <div className="tool-tip-content">
+                    <div className="tool-tip-content-inner">
+                        {this.props.children}
+                    </div>  
+                </div>
             </div>
         );
     }

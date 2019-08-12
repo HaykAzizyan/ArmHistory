@@ -1,14 +1,30 @@
 .tool-tip-class{
-    background: black;
-    color: gray;
+    z-index: 5000;
     position: fixed;
-    // display: n;
-    opacity: 0.1;
-    padding: 20px;
+    display: none;
+    height: 0px;
+    width: 0px;
+    
     left: 0px;
     top: 0px;
+    .tool-tip-content{
+        display: block;
+        position: relative;
+        
+        .tool-tip-content-inner{
+            background: black;
+            color: gray;
+            position: absolute;
+            bottom: 10px;
+            left: 0px;
+            margin-left: -50%;
+            width: 200px;
+            padding: 20px;
+            box-shadow: 3px 3px 5px darkgray;
+        }
+    }
+    
     &.is-visible{
-        // display: block;
-        opacity: 1;
+        display: block;       
     }
 }

@@ -59,7 +59,10 @@ export default class BarChart extends React.Component <any, any>
             const event = d3.event;
             this.model.events.mouseout(d, [event.clientX, event.clientY])
             d['elem'].style('fill', () => 'steelblue')})
-        console.log(size)
+        .on('mousemove', (d, i) =>{
+            const event = d3.event;
+            this.model.events.mousemove(d, [event.clientX, event.clientY])
+        })  
     }
 
     public componentDidUpdate():void{        
