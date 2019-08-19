@@ -27,6 +27,9 @@ export default class BackGroundContainer extends React.Component <any, any>
         return(
             <div className="background-container">
                 <BackGround model={this.model}/>
+                <div className="background-container-overlay">
+                    
+                </div>
             </div>
         );
     }

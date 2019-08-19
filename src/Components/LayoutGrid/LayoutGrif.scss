@@ -1,0 +1,13 @@
+.layout-grid-container{
+    position: relative;
+    .layout-grid-row{
+        margin: 0;
+    }
+    .layout-grid-active-item{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 0;
+    }
+}

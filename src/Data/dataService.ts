@@ -6,7 +6,7 @@ export class DataService {
     {
         return backgrounds.map((img: IBackGroundItem) => {
             img.source = "./Images/Background gallery/" + img.source;
-            return img;
+            return {...img};
         });
     }
 }

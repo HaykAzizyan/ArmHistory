@@ -83,13 +83,28 @@ export default class Statistic extends React.Component <any, any>
                 <Tooltip model={this.tooltipModel} children={<div>{this.getToolTipContent()}</div> }/>
                 <div className={`pagecontent `} ref={this.root}>                    
                     <h1>Statistic</h1>
-                    <div>
-                        <DonutChart model={this.donutChartModel} data={[{x: 10,y: 50}, {x: 20,y: 50}, {x: 200,y: 500} ]}/>
-                        <BarChart model={this.barChartModel} data={[100000, 123124, 3423423, 212412, 564656, 110023, 34534]}/>
-                        <LineGraph model={this.lineGraphModel} data={[[10, 20],[30, 60],[20, 80],[100, 60],[50, 150],[10, 10]]}/>                       
-                    </div>   
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm">
+                            <DonutChart model={this.donutChartModel} data={[{x: 10,y: 50}, {x: 20,y: 50}, {x: 200,y: 500} ]}/>
+                            </div>
+                            <div className="col-sm">
+                            <BarChart model={this.barChartModel} data={[100000, 123124, 3423423, 212412, 564656, 110023, 34534]}/>
+                            </div>
+                            <div className="col-sm">
+                            <LineGraph model={this.lineGraphModel} data={[[10, 20],[30, 60],[20, 80],[100, 60],[50, 150],[10, 10]]}/>
+                            </div>
+                        </div>
+                    </div>               
                 </div>
             </div>    
         );
     }
 }
+
+
+{/* <div>                       
+                        <DonutChart model={this.donutChartModel} data={[{x: 10,y: 50}, {x: 20,y: 50}, {x: 200,y: 500} ]}/>
+                        <BarChart model={this.barChartModel} data={[100000, 123124, 3423423, 212412, 564656, 110023, 34534]}/>
+                        <LineGraph model={this.lineGraphModel} data={[[10, 20],[30, 60],[20, 80],[100, 60],[50, 150],[10, 10]]}/>                       
+                    </div>    */}

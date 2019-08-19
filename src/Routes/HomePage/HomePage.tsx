@@ -32,8 +32,7 @@ export default class HomePage extends React.Component <any, any>
         return(
                 <div className={`pagecontent `} ref={this.root}>                    
                     <h1>HomePage</h1>
-                    <BackGround model={this.model}/>
-                    <button onClick={event => this.model.selectNext()}> Кнопка </button>
+                    <BackGround model={this.model}/>                  
                 </div>
         );
     }
