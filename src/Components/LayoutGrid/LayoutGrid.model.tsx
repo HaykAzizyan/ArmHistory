@@ -1,4 +1,5 @@
-import { observable, action } from "mobx";
+import { observable, action, computed} from "mobx";
+
 
 export interface ILayoutGridItem{
     name: string,
@@ -21,9 +22,16 @@ export default class LayoutGridModel{
                 content: element,
                 index: index
             })
-        });
-
-    
+        });  
+    }
+    @action 
+    public changeCurrentIndex(newIndex: number = -1){
+        this.currentIndex = newIndex;
+        return newIndex;
     }
 
+    @computed 
+    public get currentItem(){
+        return this.items.find((d:ILayoutGridItem)=> this.currentIndex === d.index) 
+    }
 } 

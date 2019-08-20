@@ -1,0 +1,36 @@
+.layout-grid-container{
+    position: relative;
+    .layout-grid-row{
+        margin: 0;
+    }
+    .layout-grid-active-item{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 0;
+    }
+    .layout-grid-item{
+        
+        &.isSelected{
+            opacity: 0;
+        }
+    }
+    .layout-grid-markup{
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        display: none;
+        &.is-active{
+            display: block;
+        }
+        .layout-grid-markup-cell{
+            display: inline-block;
+            vertical-align: top;
+            border: 1px solid red;
+        }
+    }
+    
+}
