@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from "./Components/Header"
+import Header from "./Components/Header/Header"
 import {MobxRouter} from "mobx-router"
 import {inject, observer} from 'mobx-react';
 import BackGroundContainer from "./Containers/backgroundContainer"

@@ -1,0 +1,14 @@
+$Mobile-Menu-Width: 300px;
+
+.mobile-menu{
+    position: fixed;
+    top: 0;
+    left: -$Mobile-Menu-Width;
+    width: $Mobile-Menu-Width;
+    height: 100%;
+    background-color: slategrey;
+
+    &.is-opened{
+        left: 0;
+    }
+}

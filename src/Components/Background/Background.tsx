@@ -61,7 +61,7 @@ constructor(props: any){
 render()
     {
         const {className} = this.props; 
-        console.log(this.getBackGroundImage())
+       
         return(
                 <div className={`back-ground-class ${className || ""}`} ref={this.root}>
                     <div className="back-ground-current" ></div>

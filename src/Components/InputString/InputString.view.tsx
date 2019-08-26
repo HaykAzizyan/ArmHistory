@@ -15,7 +15,7 @@ export default class InputString extends React.Component<any, any>
         return (this.input.current.value === this.model.value);
     } 
     private onChange(e: any){
-        if(this.compareValues) return false;
+        if(this.compareValues()) return false;
         else {
             this.model.setValue(this.currentInputValue)
         } 
@@ -24,7 +24,11 @@ export default class InputString extends React.Component<any, any>
     public componentDidMount(){
         
         const valueObserver = computed(()=>this.model.value)
-        this.subscription = valueObserver.observe((value)=>console.log(value))
+        this.subscription = valueObserver.observe((value)=>{
+            console.log(this.model.isValid)
+            if(this.compareValues()) return false;
+            else this.input.current.value = this.model.value;
+        })
     }
 
     public componentWillUnmount(){

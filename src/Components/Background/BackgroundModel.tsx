@@ -49,7 +49,7 @@ export default class BackGroundModel{
             newIndex = 0;
         }
         this.setIndex(newIndex);
-        console.log(newIndex);
+        
     }
     @computed public get currentImage()
     {
