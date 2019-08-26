@@ -1,14 +1,42 @@
+@import "../../Styles/Mixins.scss";
+
 $Mobile-Menu-Width: 300px;
+$Header-height: 50px;
 
 .mobile-menu{
+    padding-top: 10px;
+    z-index: 1000;
     position: fixed;
-    top: 0;
+    top: $Header-height;
     left: -$Mobile-Menu-Width;
     width: $Mobile-Menu-Width;
-    height: 100%;
+    height: calc(100% - #{$Header-height});
     background-color: slategrey;
+    @include use-transition();
 
     &.is-opened{
-        left: 0;
+        left: 0px;
+        .mobile-menu-overlay{
+            left: 0;
+        }
+    }
+
+    .navbar-nav-mobile{
+        position: relative;
+        z-index: 1001;
+    }
+
+    .mobile-menu-overlay{
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .nav-active{
+        list-style: none;
     }
 }

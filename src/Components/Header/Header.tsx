@@ -26,8 +26,8 @@ class Header extends React.Component<any, any>
     private menuState: boolean = false;
 
     @action
-    private toggleMenu(){
-        this.menuState = !this.menuState
+    private toggleMenu(newState: boolean | null = null){
+         this.menuState = newState === null ? !this.menuState: !!newState;
     }
 
     @action
@@ -40,14 +40,16 @@ class Header extends React.Component<any, any>
             case "HistoricEvents":router.goTo(routes.historicevents);break;
             case "Statistic":router.goTo(routes.statistic);break;
             case "Forms":router.goTo(routes.forms);break;
-            default: console.error("unknown route");break;
+            default: console.error("unknown route");break;        
         }
+        this.menuState = false;
     }
    render()
    {    
      return(
         <div className="app-header">
-                <div className={`mobile-menu hidden-md-down ${this.menuState ? "is-opened": ""}`} >
+                <div className={`mobile-menu hidden-sm-up ${this.menuState ? "is-opened": ""}`} >
+                    
                     <ul className ="navbar-nav-mobile">  
                         { this.links.map((d: IMenuLink, i: number)=>
                             <li className="nav-active" key={i}>
@@ -56,6 +58,8 @@ class Header extends React.Component<any, any>
                             )                 
                         }
                     </ul>
+                    <div className="mobile-menu-overlay" onClick={() => this.toggleMenu(false)}></div>
+                    
                 </div>
 
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
