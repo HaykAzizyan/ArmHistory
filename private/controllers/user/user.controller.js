@@ -7,13 +7,14 @@
 
  class UserController{
    
-    _saveNewUser(userData){
+    async _saveNewUser(userData){
         const hashedPassword = BCrypt.hashSync(userData.password, 10);
-        registeredUsers[userData.login] = {
-            login: userData.login,
-            password: hashedPassword
-        };
-         return this._getUserToken(userData);
+        console.log(global["DBcontroller"].models.userModel);
+        // return global["DBcontroller"].models.userModel.create({
+        //     username: userData.login,
+        //     password: hashedPassword
+        // });
+       
     }
 
     _getUserToken(userData){
@@ -23,7 +24,7 @@
     _getRegistredUser(userData){
         const user = registeredUsers[userData.login]
         console.log(user, registeredUsers);
-        return BCrypt.compareSync(userData.password, hashedPassword)? user: null;
+        return BCrypt.compareSync(userData.password, user.password)? user: null;
         
     }
 
@@ -48,8 +49,10 @@
             console.log(validator(HELPERS.TURN_TO_OBJ(req.body)))
             if(!validator(userData)) res.status(400).send({error: "Check your login/password" })
             else  {
-                const token = this._saveNewUser(userData)
-                res.send({token})
+                this._saveNewUser(userData).then((createdUser)=> {
+                    console.log(createdUser);
+                    res.send(createdUser);
+                })
             }
             
         })
