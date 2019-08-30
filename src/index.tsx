@@ -9,10 +9,14 @@ import mainStore from './Store/MainStore'
 import dataService from './Data/dataService'
 import {startRouter} from "mobx-router"
 import routes from "./Config/Views"
+import httpService from "./Services/http.service"
+import userService from "./Services/user.service" 
 configure({enforceActions: 'always'});
 startRouter(routes, mainStore) 
 ReactDOM.render(<Provider 
     dataService={dataService} 
+    httpService={httpService}
+    userService={userService}
     mainStore={mainStore}><App/></Provider>, document.getElementById('root'));
 
 

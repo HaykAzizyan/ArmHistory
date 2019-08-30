@@ -1,7 +1,8 @@
 const config = require("../../config/config.json"),
       mongoose = require("mongoose"),
       helper = require("../../helpers/validators"),
-      userModel = require("./user.model");
+      userModel = require("./user.model"),
+      tokenModel = require("./token.model");
 
 class DBconection{
     connect(fn){
@@ -22,7 +23,7 @@ class DBconection{
 
     constructor(application){
         this.application = application;
-        this.models = {userModel}
+        this.models = {userModel, tokenModel}
     }
 }
 module.exports = DBconection;

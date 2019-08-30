@@ -13,9 +13,10 @@ const mongoose = require("mongoose")
     model = mongoose.model("UserModel", schema);
 
 const createUser = (userData) => {
+
     const newUser = new model({
         
-        username:  userData.login, 
+        username:  userData.username, 
         password:  userData.password,
         gamesplayed: 0,
         winrate:     0,
@@ -38,5 +39,5 @@ const updateUser = async (username, dataToUpdate) => {
 
 const deleteUser = (username) => model.findOneAndDelete({username});
 
-module.export = {create: createUser, update: updateUser, read: readUser, delete: deleteUser}
+module.exports = {create: createUser, update: updateUser, read: readUser, delete: deleteUser}
 

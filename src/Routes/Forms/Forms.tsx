@@ -6,7 +6,8 @@ import InputString from '../../Components/InputString/InputString.view'
 import InputStringModel from '../../Components/InputString/InputString.model';
 import { CHECK_MIN_LENGTH, CHECK_REGULAR_EXPRESSION, CHECK_MAX_LENGTH } from '../../Helpers/Validators';
 import { EMAIL_CHECKER } from '../../Helpers/regularExpresions';
-@inject("mainStore")
+import APIcnst from "../../Helpers/api.cnst"
+@inject("mainStore", "httpService")
 @observer
 export default class Forms extends React.Component <any, any>
 {
@@ -34,6 +35,15 @@ export default class Forms extends React.Component <any, any>
     private onFormSubmit(){
         console.log(this.inputEmailModel.value)
     }
+
+    private testServerConnection(){
+        this.props.httpService.sendGetReq(APIcnst.TEST_GET)
+            .then(res => console.log(res))
+            .catch(res => console.log(res))
+            
+    }
+
+
     render()
     {
         return(
@@ -41,7 +51,7 @@ export default class Forms extends React.Component <any, any>
                 <div className={`pagecontent `} ref={this.root}>
                     <h1>Forms</h1>                        
                     <div className="container">
-                        <form>                   
+                        {/* <form>                    */}
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1"></label>
                                 <InputString  className="form-control" placeholder="Enter First Name" model={this.inputNameModel}></InputString>
@@ -55,9 +65,9 @@ export default class Forms extends React.Component <any, any>
                                 disabled={!this.inputEmailModel.isValid || !this.inputNameModel.isValid || !this.inputLastModel.isValid} 
                                 onClick={e=>this.onFormSubmit()}> кнопочка
                                 </button>  
-
+                                <button onClick={e=>this.testServerConnection()}>Тест</button>
                             </div>
-                        </form>
+                        {/* </form> */}
                     </div>
                 </div>
             </div>

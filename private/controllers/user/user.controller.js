@@ -10,41 +10,28 @@
     async _saveNewUser(userData){
         const hashedPassword = BCrypt.hashSync(userData.password, 10);
         console.log(global["DBcontroller"].models.userModel);
-        // return global["DBcontroller"].models.userModel.create({
-        //     username: userData.login,
-        //     password: hashedPassword
-        // });
+        return global["DBcontroller"].models.userModel.create({
+            username: userData.login,
+            password: hashedPassword
+        });
        
     }
 
-    _getUserToken(userData){
-        return `${new Date().getTime()}_${userData.login}`;
+    async _getUserToken(userData){
+        console.log(userData)
+        return global.DBcontroller.models.tokenModel.create(userData);
     }
 
-    _getRegistredUser(userData){
-        const user = registeredUsers[userData.login]
-        console.log(user, registeredUsers);
-        return BCrypt.compareSync(userData.password, user.password)? user: null;
+    async _getRegistredUser(userData){
+        const user = await global["DBcontroller"].models.userModel.read(userData.login)
+        if (user) return BCrypt.compareSync(userData.password, user.password)? user: null;
+        else return null;   
         
     }
 
-    registerUser(){
+    registerUser(req, res){
 
-    }
-
-    logIn(){
-
-    }
-
-    logOut(){
-
-    }
-
-
-    constructor(application){
-        this.application = application;
-        this.application.post(API_CNST.REGISTER_USER, (req, res)=>{ 
-            const validator = HELPERS.CHECK_OBJ_KEYS(["login", "password"]),
+        const validator = HELPERS.CHECK_OBJ_KEYS(["login", "password"]),
                   userData = HELPERS.TURN_TO_OBJ(req.body)
             console.log(validator(HELPERS.TURN_TO_OBJ(req.body)))
             if(!validator(userData)) res.status(400).send({error: "Check your login/password" })
@@ -54,22 +41,48 @@
                     res.send(createdUser);
                 })
             }
-            
-        })
-        this.application.post(API_CNST.LOG_IN, (req, res)=>{
-            const validator = HELPERS.CHECK_OBJ_KEYS(["login", "password"]),
+
+    }
+
+    logIn(req, res){
+
+        const validator = HELPERS.CHECK_OBJ_KEYS(["login", "password"]),
                   userData = HELPERS.TURN_TO_OBJ(req.body);
                   
-            const user = this._getRegistredUser(userData);
-            
-            if(!user) res.status(401).send({error: "Check your login/password"})
-            else{
-                const token = this._getUserToken(userData)
-                res.send({token})
-            }
-            
+            this._getRegistredUser(userData).then((user)=>{
+                if(!user) res.status(401).send({error: "Check your login/password"})
+                else{
+                    this._getUserToken(user).then((token) => res.send({token}))
+                }
+            });
+
+    }
+
+    logOut(req, res){
+        console.log(req.headers);
+        res.send({"ok": 200})
+    }
+
+
+    testUserAuthorization(req, res, next){
+        global.DBcontroller.models.tokenModel.read(req.headers.auth)
+        .then(token => {
+            console.log(token);
+            if(token) next();
+            else res.status(401).send({"error": 401})
         })
     }
 
+
+    constructor(application){
+        this.application = application;
+        this.application.post(API_CNST.REGISTER_USER, (req, res)=> this.registerUser(req, res));
+        this.application.post(API_CNST.LOG_IN, (req, res)=> this.logIn(req, res));
+        this.application.post(API_CNST.LOG_OUT, (req, res)=> this.logOut(req, res));
+        this.application.post(API_CNST.TEST_AUTH, this.testUserAuthorization, (req, res) => {
+            console.log("is ok");
+            res.send({"ok": 200})
+        })
+    }
 }
 module.exports = UserController;
