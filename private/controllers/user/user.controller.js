@@ -29,6 +29,12 @@
         
     }
 
+    async _restoreUser(req, res){
+        global.DBcontroller.models.tokenModel.update(req.headers.auth, new Date())
+        .then((updatedToken)=>res.send(updatedToken))
+        .catch((error)=>res.status(error.status).send(error));
+    }
+
     registerUser(req, res){
 
         const validator = HELPERS.CHECK_OBJ_KEYS(["login", "password"]),
@@ -64,6 +70,8 @@
     }
 
 
+
+
     testUserAuthorization(req, res, next){
         global.DBcontroller.models.tokenModel.read(req.headers.auth)
         .then(token => {
@@ -81,8 +89,12 @@
         this.application.post(API_CNST.LOG_OUT, (req, res)=> this.logOut(req, res));
         this.application.post(API_CNST.TEST_AUTH, this.testUserAuthorization, (req, res) => {
             console.log("is ok");
-            res.send({"ok": 200})
-        })
+            res.send({"ok": 200})    
+        });
+        this.application.post(API_CNST.RESTORE_USER, this.testUserAuthorization,(req, res) =>{
+            console.log("что-то есть")
+            this._restoreUser(req, res);
+        });
     }
 }
 module.exports = UserController;

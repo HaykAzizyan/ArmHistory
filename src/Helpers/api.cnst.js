@@ -4,5 +4,6 @@ export default {
     LOG_OUT: "/log-out",
     TEST_AUTH: "/test-auth",
     TEST_POPST: "/testpost",
-    TEST_GET: "/testGet"
+    TEST_GET: "/testGet",
+    RESTORE_USER: "/restore-user"
 }

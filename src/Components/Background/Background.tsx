@@ -13,13 +13,7 @@ private lastImg: string | null = "";
 private root: any = React.createRef();
 private backGroundModel: BackGroundModel;
 private subscription: any = null;
-private getBackGroundImage():any{
-    if (this.backGroundModel.currentImage)
-    {
-        return {"backgroundImage": `url("${this.backGroundModel.currentImage.source}")`}
-    }
-    else return {}
-}
+
 
 public componentDidMount():void{
     const root = d3.select(this.root.current)

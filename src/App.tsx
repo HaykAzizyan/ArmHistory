@@ -3,6 +3,7 @@ import Header from "./Components/Header/Header"
 import {MobxRouter} from "mobx-router"
 import {inject, observer} from 'mobx-react';
 import BackGroundContainer from "./Containers/backgroundContainer"
+import "./App.scss"
 @inject("mainStore")
 @observer 
 class App extends React.Component <any, any>
@@ -12,7 +13,7 @@ class App extends React.Component <any, any>
   {
     return(
       <div>        
-        <BackGroundContainer/>
+        {/* <BackGroundContainer/> */}
         <Header/>
         <MobxRouter store={this.props.mainStore}/>
       </div> 

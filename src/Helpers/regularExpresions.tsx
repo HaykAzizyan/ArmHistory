@@ -1,1 +1,2 @@
 export const EMAIL_CHECKER = /[a-z0-9!#$%&'*+\/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9][a-z0-9-]*[a-z0-9]/
+export const PASSWORD_CHECKER = /^[a-zA-Z0-9%$&@#_]*$/

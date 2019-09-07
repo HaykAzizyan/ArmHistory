@@ -19,7 +19,8 @@ class Header extends React.Component<any, any>
         {link: 'HistoricPersons', label: 'Личности'},
         {link: 'HistoricEvents',  label: 'События'},
         {link: 'Statistic',       label: 'Статистикса'},
-        {link: 'Forms' ,          label:'Форма'}
+        {link: 'Forms' ,          label:'Форма'},
+        {link: 'Games',           label:'Игра'}
     ];
 
     @observable
@@ -40,6 +41,7 @@ class Header extends React.Component<any, any>
             case "HistoricEvents":router.goTo(routes.historicevents);break;
             case "Statistic":router.goTo(routes.statistic);break;
             case "Forms":router.goTo(routes.forms);break;
+            case "Games":router.goTo(routes.games);break;
             default: console.error("unknown route");break;        
         }
         this.menuState = false;

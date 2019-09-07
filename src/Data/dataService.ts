@@ -5,7 +5,7 @@ export class DataService {
     public loadBackground()
     {
         return backgrounds.map((img: IBackGroundItem) => {
-            img.source = "./Images/Background gallery/" + img.source;
+            img.source = "./public/Images/Background gallery/" + img.source;
             return {...img};
         });
     }

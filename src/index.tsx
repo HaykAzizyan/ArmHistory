@@ -11,12 +11,14 @@ import {startRouter} from "mobx-router"
 import routes from "./Config/Views"
 import httpService from "./Services/http.service"
 import userService from "./Services/user.service" 
+import tokenService from "./Services/token.service"
 configure({enforceActions: 'always'});
 startRouter(routes, mainStore) 
 ReactDOM.render(<Provider 
     dataService={dataService} 
     httpService={httpService}
     userService={userService}
+    tokenService={tokenService}
     mainStore={mainStore}><App/></Provider>, document.getElementById('root'));
 
 
