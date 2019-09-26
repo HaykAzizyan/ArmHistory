@@ -8,6 +8,10 @@ import { CHECK_MIN_LENGTH, CHECK_REGULAR_EXPRESSION, CHECK_MAX_LENGTH } from '..
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../Helpers/regularExpresions';
 import APIcnst from "../../Helpers/api.cnst";
 import "./game.scss";
+import { directive } from "@babel/types";
+import WelcomeScreen from "./gameScreens/welcomeScreen";
+import GameScreen from "./gameScreens/gameScreen";
+import GameModel from "./gameModel";
 @inject("mainStore", "httpService", "userService")
 @observer
 
@@ -20,39 +24,21 @@ export default class GameForm extends React.Component <any, any> {
 
     private inputEmailModel: InputStringModel = new InputStringModel("");
     private inputPasswordModel:  InputStringModel = new InputStringModel("", [CHECK_MIN_LENGTH(5), CHECK_MAX_LENGTH(40), CHECK_REGULAR_EXPRESSION(PASSWORD_CHECKER)], true);
-
+    private model: GameModel = new GameModel();
 
     private onFormSubmit(){
         this.props.userService.login(this.inputEmailModel.value, this.inputPasswordModel.value)
     }
+
+
 
     render()
     {
         const isAuthorized = this.props.userService.isAuthorized; 
         return(
             <div>
-                {!isAuthorized && <div className="game-form"> 
-                        <h1>Wanna play a game?</h1>                        
-                        <div className="container">
-                            {/* <form>                    */}
-                                <div className="form-group">
-                                    
-                                    <InputString  className="form-control" placeholder="Enter email" model={this.inputEmailModel}></InputString>
-                                    <br/>
-                                    <InputString  className="form-control" placeholder="Enter Last Name" model={this.inputPasswordModel}></InputString>
-                                    <br/>
-                                    <button className="btn btn-secondary " 
-                                    disabled={!this.inputEmailModel.isValid || !this.inputPasswordModel.isValid } 
-                                    onClick={e=>this.onFormSubmit()}> letsgo 
-                                    </button>  
-                                    
-                                </div>
-                            {/* </form> */}
-                        </div>       
-                </div>}
-                {isAuthorized && 
-                    <h1>Wellcome</h1>
-                }
+                {isAuthorized ? <GameScreen model={this.model}/>: <WelcomeScreen/>} 
+
             </div>
         );
     }

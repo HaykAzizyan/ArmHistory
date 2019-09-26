@@ -4,6 +4,7 @@ import HistoricPersons from "../Routes/HistoricPersons/HistoricPersons"
 import HistoricEvents from "../Routes/HistoricEvents/HistoricEvents"
 import Statistic from "../Routes/D3Animation/Statistic"
 import Forms from "../Routes/Forms/Forms"
+import RegisterForm from "../Routes/Forms/registerForm"
 import GameForm from "../Routes/game/game"
 import {Route} from "mobx-router"
 
@@ -27,8 +28,12 @@ export default {
     }),
     forms: new Route({
         path:'/forms',
-        component: <Forms/>
+        component: <Forms/>    
     }),
+    registerForms: new Route({
+        path:'/registerforms',
+        component: <RegisterForm/>
+    }),    
     games: new Route({
         path: '/games',
         component: <GameForm/>

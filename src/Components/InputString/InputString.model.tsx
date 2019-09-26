@@ -22,7 +22,9 @@ export default class InputStringModel{
     
     @computed 
     public get isValid(): boolean{
-        if(this.validators.length) return this.validators.every(fn => fn(this.value)) ;
+        if(this.validators.length) return this.validators.every(fn => { 
+        console.log(typeof fn, fn)
+        return fn(this.value)}) ;
         else return true;
     }
     

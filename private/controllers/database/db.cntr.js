@@ -1,8 +1,9 @@
-const config = require("../../config/config.json"),
-      mongoose = require("mongoose"),
-      helper = require("../../helpers/validators"),
-      userModel = require("./user.model"),
-      tokenModel = require("./token.model");
+const config =     require("../../config/config.json"),
+      mongoose =   require("mongoose"),
+      helper =     require("../../helpers/validators"),
+      userModel =  require("./user.model"),
+      tokenModel = require("./token.model"),
+      gameModel =  require("./game.model");
 
 class DBconection{
     connect(fn){
@@ -23,7 +24,8 @@ class DBconection{
 
     constructor(application){
         this.application = application;
-        this.models = {userModel, tokenModel}
+        this.models = {userModel, tokenModel, gameModel}
+
     }
 }
 module.exports = DBconection;

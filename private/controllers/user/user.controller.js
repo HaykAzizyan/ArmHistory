@@ -1,6 +1,7 @@
  const API_CNST = require("../../constants/api.cnst")
  const HELPERS = require("../../helpers/validators")
  const BCrypt = require("bcrypt")
+ const testUserAuthorization = require("../../services/authorizationService")
  
  
  const registeredUsers = {}
@@ -69,29 +70,16 @@
         res.send({"ok": 200})
     }
 
-
-
-
-    testUserAuthorization(req, res, next){
-        global.DBcontroller.models.tokenModel.read(req.headers.auth)
-        .then(token => {
-            console.log(token);
-            if(token) next();
-            else res.status(401).send({"error": 401})
-        })
-    }
-
-
     constructor(application){
         this.application = application;
         this.application.post(API_CNST.REGISTER_USER, (req, res)=> this.registerUser(req, res));
         this.application.post(API_CNST.LOG_IN, (req, res)=> this.logIn(req, res));
         this.application.post(API_CNST.LOG_OUT, (req, res)=> this.logOut(req, res));
-        this.application.post(API_CNST.TEST_AUTH, this.testUserAuthorization, (req, res) => {
+        this.application.post(API_CNST.TEST_AUTH, testUserAuthorization, (req, res) => {
             console.log("is ok");
             res.send({"ok": 200})    
         });
-        this.application.post(API_CNST.RESTORE_USER, this.testUserAuthorization,(req, res) =>{
+        this.application.post(API_CNST.RESTORE_USER, testUserAuthorization,(req, res) =>{
             console.log("что-то есть")
             this._restoreUser(req, res);
         });

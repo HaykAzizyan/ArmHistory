@@ -5,6 +5,7 @@ const express = require("express"),
       config = require("./private/config/config.json");
       
 const userControllerConstructor = require("./private/controllers/user/user.controller")
+const gameControllerConstructor = require("./private/controllers/user/game.controller")
 const DBconectionConstructor = require("./private/controllers/database/db.cntr")
 const app = express() 
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({
 
 
 const userController = new userControllerConstructor(app);
+const gameController = new gameControllerConstructor(app);
 const DBcontroller = new DBconectionConstructor(app);
 global["DBcontroller"] = DBcontroller;
 
