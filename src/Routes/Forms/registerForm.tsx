@@ -7,8 +7,11 @@ import InputStringModel from '../../Components/InputString/InputString.model';
 import { CHECK_MIN_LENGTH, CHECK_REGULAR_EXPRESSION, CHECK_MAX_LENGTH } from '../../Helpers/Validators';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../Helpers/regularExpresions';
 import APIcnst from "../../Helpers/api.cnst"
+import routes from "../../Config/Views";
 import { runInThisContext } from 'vm';
-@inject("mainStore", "httpService")
+
+
+@inject("mainStore", "httpService", "userService")
 @observer
 export default class Forms extends React.Component <any, any>{
 
@@ -31,9 +34,19 @@ export default class Forms extends React.Component <any, any>{
     private inputEmailModel:      InputStringModel = new InputStringModel("", [CHECK_REGULAR_EXPRESSION(EMAIL_CHECKER)], true);
     private inputNameModel:       InputStringModel = new InputStringModel("", [CHECK_MIN_LENGTH(2), CHECK_MAX_LENGTH(20)], true);
     private inputLastModel:       InputStringModel = new InputStringModel("", [CHECK_MIN_LENGTH(2), CHECK_MAX_LENGTH(40)], true);
-    private inputPasswordModel:   InputStringModel = new InputStringModel("", [ CHECK_MAX_LENGTH(40), CHECK_REGULAR_EXPRESSION(PASSWORD_CHECKER),true]);
-    // private inputconfirmPassword: InputStringModel = new InputStringModel("", [(passwordConfirm: string) => passwordConfirm === this.inputPasswordModel.value]);
-    private inputconfirmPassword: InputStringModel = new InputStringModel();
+    private inputPasswordModel:   InputStringModel = new InputStringModel("", [ CHECK_MAX_LENGTH(40), CHECK_REGULAR_EXPRESSION(PASSWORD_CHECKER)], true);
+    private inputconfirmPassword: InputStringModel = new InputStringModel("", [(passwordConfirm: string) => passwordConfirm === this.inputPasswordModel.value]);
+    
+    private onFormRegister() {
+        const {router} = this.props.mainStore
+        this.props.httpService.sendPostReq(APIcnst.REGISTER_USER,{
+            login: this.inputEmailModel.value,
+            password: this.inputPasswordModel.value
+        })
+        .then(res => this.props.userService.login(this.inputEmailModel.value, this.inputPasswordModel.value).then((token) => router.goTo(routes.games)))
+        .catch(res => console.log(res))
+    }
+    
     @computed
     private get isEnabled(){
         return ["inputEmailModel", "inputNameModel", "inputLastModel", "inputPasswordModel", "inputconfirmPassword"].every(d => this[d].isValid)
@@ -48,7 +61,6 @@ export default class Forms extends React.Component <any, any>{
                 <div className={`pagecontent `} ref={this.root}>
                     <h1>Forms</h1>                        
                     <div className="container">
-                        {/* <form>                    */}
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1"></label>
                                 <InputString  className="form-control" placeholder="Enter First Name" model={this.inputNameModel}></InputString>
@@ -63,11 +75,11 @@ export default class Forms extends React.Component <any, any>{
                                 <small id="password-confirmHelp" className="from-text text-muted">please think about strong password</small>
                                 
                                 <button className="btn btn-secondary " 
-                                disabled={!this.isEnabled} > 
+                                onClick={e=>this.onFormRegister()}
+                                disabled={!this.isEnabled}> 
                                 кнопочка
                                 </button>  
                             </div>
-                        {/* </form> */}
                     </div>
                 </div>
             </div>

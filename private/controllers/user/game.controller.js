@@ -3,14 +3,18 @@ const HELPERS = require("../../helpers/validators")
 const BCrypt = require("bcrypt")
 const testUserAuthorization = require("../../services/authorizationService")
 
-class GameControler{
+class GameController{
+
+    async createNewGame(userID){
+       return global.DBcontroller.models.gameModel.create(userID)
+    }
 
     constructor(application){
         this.application = application;
         this.application.post(API_CNST.START_GAME, testUserAuthorization, (req, res)=> {
-            // global.DBcontroller.models.gameModel.create()
-            console.log(req.token);
-            res.send({ok: 200})
+            this.createNewGame(req.token.userID)
+            .then((newGameLayout) => {console.log(newGameLayout); res.send(newGameLayout)})
+            .catch(error => res.status(error.status).send(error))
         })       
     }
 }

@@ -13,7 +13,7 @@ const mongoose = require("mongoose")
     model = mongoose.model("UserModel", schema);
 
 const createUser = (userData) => {
-
+    console.log(userData);
     const newUser = new model({
         
         username:  userData.username, 

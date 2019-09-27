@@ -2,6 +2,7 @@ import React from "react"
 import {action, computed, observable} from 'mobx';
 import {inject, observer} from 'mobx-react';
 import GameModel from '../gameModel';
+import API_CNST from "../../../Helpers/api.cnst";
 
 export interface GameItem{
     name: string,
@@ -9,7 +10,7 @@ export interface GameItem{
     isSelected: boolean
 } 
 
-@inject("mainStore")
+@inject("mainStore", "httpService", "userService")
 @observer
 export default class GameScreen extends React.Component <any, any> {
 
@@ -24,15 +25,7 @@ export default class GameScreen extends React.Component <any, any> {
     @action
      private handleOnClick(e: any) 
     {
-        const {router} = this.props.mainStore
-        // switch (e){
-        //     case "Start game": 
-        //     case "HistoricPersons":router.goTo(routes.historicpersons);break;
-        //     case "HistoricEvents":router.goTo(routes.historicevents);break;
-                  
-        // }
-        // this.menuState = false;
-        console.log(e);
+        this.props.httpService.sendPostReq(API_CNST.START_GAME, {}).then()
     }
 
     
