@@ -3,6 +3,7 @@ import {action, computed, observable} from 'mobx';
 import {inject, observer} from 'mobx-react';
 import GameModel from '../gameModel';
 import API_CNST from "../../../Helpers/api.cnst";
+import GameMapBuilderModel from "../gameMap/gameMapBuilder.model"
 
 export interface GameItem{
     name: string,
@@ -22,11 +23,18 @@ export default class GameScreen extends React.Component <any, any> {
     }
 
     private readonly model: GameModel;
+
+    private gameMapBuilderModel: GameMapBuilderModel = new GameMapBuilderModel()
+
     @action
      private handleOnClick(e: any) 
     {
-        this.props.httpService.sendPostReq(API_CNST.START_GAME, {}).then()
+        this.props.httpService.sendPostReq(API_CNST.START_GAME, {})
+        .then((res) => this.gameMapBuilderModel.addTiles(res.tiles))
+        .catch((error) => console.log(error))
     }
+
+    
 
     
     private menuItems: GameItem[] = [
@@ -39,14 +47,18 @@ export default class GameScreen extends React.Component <any, any> {
     render(){
         return( 
             <div> {!this.model.isStarted && !this.model.isFinished &&
+                
                 <div className="game-menu-items">{this.menuItems.map ((d: GameItem, i: number)=>
                     <div className="game-menu-item" key={i} onClick={() => this.handleOnClick(d.name)}>
                         <span>{d.lable}</span>
                     </div>
                 )}
                 </div>
-            }     
-            </div>    
+            }  
+                {/* <div> {this.model.isStarted && !this.model.isFinished &&}
+                </div> */}    
+            </div> 
+            
         );
     }
 }

@@ -5,5 +5,7 @@ export default {
     TEST_AUTH: "/test-auth",
     TEST_POPST: "/testpost",
     TEST_GET: "/testGet",
-    RESTORE_USER: "/restore-user"
+    RESTORE_USER: "/restore-user",
+    START_GAME: "/start-game",
+    END_MOVE: "/end-move"
 }
